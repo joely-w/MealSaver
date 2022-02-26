@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap')
+$black: #332d2d
+$orange: #ff915c
+$white: #f6f4f3
+body
+  margin: 0
+  font-family: 'Roboto', sans-serif
+  overflow-x: hidden
+  background: $white
+
+main
+  text-align: center
+  overflow-x: hidden
+
+nav
+  position: fixed
+  bottom: 0
+  right: 0
+  ul
+    width: 100vw
+    display: flex
+    padding-left: 0
+    align-items: center
+    justify-content: space-around
+    list-style: none
+
+    li
+      display: flex
+      a
+        width: 100%
+        color: $black
+        &.active
+          color: $orange
+
+/** Camera *//
+#video
+  width: 100%
+  height: 80%
+#canvas
+  width: 100%
+  height: 80%
+  display: none
+button
+  border-radius: 25px
+  padding: 10px
+  border: 3px $black solid
+  background: $white
+  color: $black
+  &:active
+    color: $orange
+    border: 3px $orange solid

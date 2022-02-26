@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="vendors/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="stylesheets/main.css" rel="stylesheet"/>
+    <title>Meal Saver - Scan</title>
+</head>
+<body>
+<main>
+    <h1>Scan your receipt</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <button id="snap"><i class="fa fa-2x fa-camera-retro" aria-hidden="true"></i></button>
+    <button id="retry"><i class="fa fa-2x fa-refresh" aria-hidden="true"></i></button>
+    <button id="accept"><i class="fa fa-2x fa-check" aria-hidden="true"></i>
+    </button>
+</main>
+<nav>
+    <ul>
+        <li><a href="/"><i class="fa fa-lg fa-home" aria-hidden="true"></i></a></li>
+        <li><a class="active" href="/camera.html"><i class="fa fa-lg fa-camera" aria-hidden="true"></i></a></li>
+        <li><a href="/recipes.html"><i class="fa fa-lg fa-cutlery" aria-hidden="true"></i></a></li>
+        <li><a href="/inventory.html"><i class="fa fa-lg fa-list" aria-hidden="true"></i></a></li>
+    </ul>
+</nav>
+</body>
+<script src="/scripts/camera.js"></script>
+
+</html>

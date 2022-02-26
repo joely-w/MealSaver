@@ -1,0 +1,42 @@
+
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/project/api
+    docker:
+      - image: cimg/node:12.16
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - run:
+          name: install-npm
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{checksum "package-lock.json"}}
+          paths:
+            - ./node_modules
+      - store_artifacts:
+          path: /tmp/artifacts
+
+  deploy:
+    docker:
+      - image: cimg/node:12.16
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "0f:50:ac:88:31:07:c5:26:db:aa:ca:40:2c:49:20:f6"
+      - run:
+          name: Deploy over SSH
+          command: ssh -p 22 -o StrictHostKeyChecking=no root@178.62.45.203 "cd ~/MealSaver/api; git reset --hard; git pull; npm install; pm2 start -f app.js"
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
