@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run:
           name: Deploy over SSH
-          command: ssh -p 22 $HOST_USERNAME@$HOST_IP "cd ~/MealSaver; git pull; pm2 start app.js";
+          command: ssh -p 22 root@178.62.45.203 "cd ~/MealSaver; git pull; pm2 start app.js";
 
 workflows:
   version: 2
