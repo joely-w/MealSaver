@@ -2,11 +2,10 @@
 version: 2.1
 jobs:
   build:
-    working_directory: ~/MealSaver
+    working_directory: .../MealSaver
     docker:
       - image: cimg/node:12.16
     steps:
-      - run: ls
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@latest'
