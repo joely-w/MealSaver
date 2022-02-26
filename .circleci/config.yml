@@ -30,7 +30,7 @@ jobs:
             - "0f:50:ac:88:31:07:c5:26:db:aa:ca:40:2c:49:20:f6"
       - run:
           name: Deploy over SSH
-          command: ssh -p 22 -o StrictHostKeyChecking=no root@178.62.45.203 "cd ~/MealSaver/api; git reset --hard; git pull; npm install; pm2 start app.js"
+          command: ssh -p 22 -o StrictHostKeyChecking=no root@178.62.45.203 "cd ~/MealSaver/api; git reset --hard; git pull; npm install; pm2 start -f app.js"
 
 workflows:
   version: 2
