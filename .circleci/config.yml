@@ -27,7 +27,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:d4RI2EzmKqD7i5tXewgQovtmD7Hv0GTksBRsRGL+zsE"
+            - "0f:50:ac:88:31:07:c5:26:db:aa:ca:40:2c:49:20:f6"
       - run:
           name: Deploy over SSH
           command: ssh -p 22 root@178.62.45.203
