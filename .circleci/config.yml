@@ -25,6 +25,9 @@ jobs:
       - image: cimg/node:12.16
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:d4RI2EzmKqD7i5tXewgQovtmD7Hv0GTksBRsRGL+zsE"
       - run:
           name: Deploy over SSH
           command: ssh -p 22 root@178.62.45.203
