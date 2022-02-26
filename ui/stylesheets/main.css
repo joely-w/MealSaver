@@ -2,7 +2,6 @@
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
-  height: 100vh;
   overflow-x: hidden;
   background: #f6f4f3;
 }
@@ -10,7 +9,6 @@ body {
 main {
   text-align: center;
   overflow-x: hidden;
-  padding-bottom: 50px;
 }
 
 nav {
@@ -49,15 +47,16 @@ nav ul li a.active {
   display: none;
 }
 
-#snap {
-  border-radius: 5%;
-  border: 1px #332d2d;
+button {
+  border-radius: 25px;
+  padding: 10px;
+  border: 3px #332d2d solid;
   background: #f6f4f3;
   color: #332d2d;
-  border: none;
 }
-#snap:active {
+button:active {
   color: #ff915c;
+  border: 3px #ff915c solid;
 }
 
 /*# sourceMappingURL=main.css.map */
