@@ -2,13 +2,15 @@
 version: 2.1
 jobs:
   build:
-    working_directory: ~/../
     docker:
       - image: cimg/node:12.16
     steps:
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@latest'
+      - run:
+          name: nav-api
+          command: 'cd ./api'
       - run:
           name: install-npm
           command: npm install
