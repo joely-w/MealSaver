@@ -10,7 +10,7 @@ jobs:
           command: 'sudo npm install -g npm@latest'
       - run:
           name: nav-api
-          command: 'cd ./api'
+          command: 'ls & echo'
       - run:
           name: install-npm
           command: npm install
