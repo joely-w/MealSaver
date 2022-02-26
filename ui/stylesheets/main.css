@@ -6,6 +6,10 @@ body {
   background: #f6f4f3;
 }
 
+h1 {
+  margin-bottom: 0;
+}
+
 main {
   text-align: center;
   overflow-x: hidden;
@@ -35,15 +39,13 @@ nav ul li a.active {
   color: #ff915c;
 }
 
-/** Camera *// */
+/** Camera **/
 #video {
   width: 100%;
   height: 80%;
 }
 
-#canvas {
-  width: 100%;
-  height: 80%;
+#canvas, #retry, #accept {
   display: none;
 }
 
