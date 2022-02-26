@@ -30,7 +30,7 @@ jobs:
             - "0f:50:ac:88:31:07:c5:26:db:aa:ca:40:2c:49:20:f6"
       - run:
           name: Deploy over SSH
-          command: ssh -p 22 root@178.62.45.203
+          command: ssh -o StrictHostKeyChecking=no -p 22 root@178.62.45.203
 
 workflows:
   version: 2
