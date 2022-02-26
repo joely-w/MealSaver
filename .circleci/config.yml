@@ -16,6 +16,9 @@ jobs:
           key: dependency-cache-{{checksum "package-lock.json"}}
           paths:
             - ./node_modules
+      - store_artifacts:
+          path: /tmp/artifacts
+
   deploy:
     docker:
       - image: circleci/node:lts
