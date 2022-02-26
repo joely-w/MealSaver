@@ -11,9 +11,9 @@ module.exports = class OCR{
 
     constructor(){
         console.log("here");
-        this.put_in_array();
-        this.parseReceipt("https://fastly.4sqi.net/img/general/600x600/47596406_O6U_qqwQOjXYqsG8xAMOO0x805hHreZMXf6R1WNma5I.jpg")
-            .then(r => console.log(r));
+        //this.put_in_array();
+        //this.parseReceipt("https://fastly.4sqi.net/img/general/600x600/47596406_O6U_qqwQOjXYqsG8xAMOO0x805hHreZMXf6R1WNma5I.jpg")
+        //    .then(r => console.log(r));
     }
 
     put_in_array(){
@@ -71,12 +71,13 @@ module.exports = class OCR{
                     if (currentMatch > bestMatch){
                         bestMatch = currentMatch;
                         bestMatchString = this.itemsArray[j];
+                        if (this.levenshteinDistance(bestMatchString, words[i]) < 3){
+                            if(receiptItems[bestMatchString]) receiptItems[bestMatchString]++;
+                            else receiptItems[bestMatchString] = 1;
+                        }
                     }
                 }
-                if (this.levenshteinDistance(bestMatchString, words[i]) < 3){
-                    if(receiptItems[bestMatchString]) receiptItems[bestMatchString]++;
-                    else receiptItems[bestMatchString] = 1;
-                }
+
             }
             //TODO handle item validation at this point
             for (let x in receiptItems){

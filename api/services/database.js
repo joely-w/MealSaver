@@ -28,7 +28,7 @@ module.exports = class Database {
         });
         this.create_database();
         // FIRST TIME SET UP: RUN THE BELOW FUNCTION!
-        this.insert_items();
+        //this.insert_items();
     }
 
     static execute_on_db(sql){
