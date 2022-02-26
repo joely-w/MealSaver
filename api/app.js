@@ -8,6 +8,7 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 app.use(express.static(__dirname+"/../ui"));
+const dbConn = new (require("./services/database.js"))();
 // default URL for website
 const server = http.createServer(app);
 const port = 3000;
