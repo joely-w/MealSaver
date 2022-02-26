@@ -11,6 +11,6 @@ app.use(express.static(__dirname+"/../ui"));
 const dbConn = new (require("./services/database.js"))();
 // default URL for website
 const server = http.createServer(app);
-const port = 3000;
+const port = 3001;
 server.listen(port);
 console.debug('Server listening on port ' + port);
