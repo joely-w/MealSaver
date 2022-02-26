@@ -2,7 +2,7 @@
 version: 2.1
 jobs:
   build:
-    working_directory: ../MealSaver
+    working_directory: ~/project/api
     docker:
       - image: cimg/node:12.16
     steps:
