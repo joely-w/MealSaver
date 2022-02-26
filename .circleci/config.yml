@@ -21,8 +21,6 @@ jobs:
   deploy:
     docker:
       - image: circleci/node:8.11.1
-    machine:
-      enabled: true
     steps:
       - checkout
       - run:
