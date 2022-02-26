@@ -1,0 +1,19 @@
+{
+  "name": "mealsaverapi",
+  "version": "1.0.0",
+  "description": "API for Meal Saver PWA",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joely-w/MealSaver.git"
+  },
+  "author": "Joel Winterton, Dylan Poole",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joely-w/MealSaver/issues"
+  },
+  "homepage": "https://github.com/joely-w/MealSaver#readme"
+}
