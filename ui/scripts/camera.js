@@ -15,9 +15,21 @@ const context = canvas[0].getContext('2d');
 // Trigger photo take
 document.getElementById("snap").addEventListener("click", function () {
     $("#snap").hide();
-
+    $("#retry").show();
+    $("#accept").show();
     video.hide()
     canvas.show();
-    context.drawImage(video[0], 0, 0, 640, 480);
+    context.drawImage(video[0], 0, 0, 400, 300);
 
 });
+
+$("#retry").click(() => {
+    $("#snap").show();
+    $("#retry").hide();
+    $("#accept").hide();
+    video.show();
+    canvas.hide()
+})
+$("#accept").click(() => {
+
+})
