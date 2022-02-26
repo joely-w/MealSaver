@@ -6,6 +6,7 @@ jobs:
     docker:
       - image: cimg/node:12.16
     steps:
+      - run: cd api
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@latest'
