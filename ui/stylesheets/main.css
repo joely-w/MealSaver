@@ -1,5 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap");
 body {
   margin: 0;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+  overflow-x: hidden;
+  background: #f6f4f3;
+}
+
+main {
+  text-align: center;
+  overflow-x: hidden;
+  padding-bottom: 50px;
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+nav ul {
+  width: 100vw;
+  display: flex;
+  padding-left: 0;
+  align-items: center;
+  justify-content: space-around;
+  list-style: none;
+}
+nav ul li {
+  display: flex;
+}
+nav ul li a {
+  width: 100%;
+  color: #332d2d;
+}
+nav ul li a.active {
+  color: #ff915c;
+}
+
+/** Camera *// */
+#video {
+  width: 100%;
+  height: 80%;
+}
+
+#canvas {
+  width: 100%;
+  height: 80%;
+  display: none;
+}
+
+#snap {
+  border-radius: 5%;
+  border: 1px #332d2d;
+  background: #f6f4f3;
+  color: #332d2d;
+  border: none;
+}
+#snap:active {
+  color: #ff915c;
 }
 
 /*# sourceMappingURL=main.css.map */
