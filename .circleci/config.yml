@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/
     docker:
-      - image: circleci/node:8.11.1
+      - image: circleci/node:lts
     steps:
       - run:
           name: update-npm
@@ -20,7 +20,7 @@ jobs:
             - ./node_modules
   deploy:
     docker:
-      - image: circleci/node:8.11.1
+      - image: circleci/node:lts
     steps:
       - checkout
       - run:
