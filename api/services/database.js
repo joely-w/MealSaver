@@ -27,6 +27,15 @@ module.exports = class Database {
             console.debug("Connected!");
         });
         this.create_database();
+        // FIRST TIME SET UP: RUN THE BELOW FUNCTION!
+        this.insert_items();
+    }
+
+    static execute_on_db(sql){
+        Database.conn.query(sql, function (err, result, fields) {
+            if (err) throw err;
+            //console.log(result);
+        });
     }
 
     execute_query(sql) {
@@ -55,16 +64,15 @@ module.exports = class Database {
                     
                     CREATE TABLE IF NOT EXISTS items(
                         item_id INT AUTO_INCREMENT PRIMARY KEY,
-                        name VARCHAR(255) NOT NULL,
+                        title VARCHAR(255) NOT NULL,
                         category INT,
                         FOREIGN KEY (category) REFERENCES categories(cat_id)
                     );
                     
                     CREATE TABLE IF NOT EXISTS items_addition(
-                        item_add_id INT PRIMARY KEY,
+                        item_add_id INT PRIMARY KEY AUTO_INCREMENT,
                         item_id INT,
                         user_id INT,
-                        quantity INT,
                         price INT,
                         vendor INT,
                         date DATETIME,
@@ -73,16 +81,34 @@ module.exports = class Database {
                     );
                     
                     CREATE TABLE IF NOT EXISTS item_usage(
-                        item_use_id INT PRIMARY KEY,
+                        item_use_id INT PRIMARY KEY AUTO_INCREMENT,
                         item_id INT,
                         user_id INT,
-                        quantity INT,
                         date DATETIME,
                         FOREIGN KEY (item_id) REFERENCES items(item_id),
                         FOREIGN KEY (user_id) REFERENCES users(user_id)
                     );`;
 
         this.execute_query(sql);
+    }
+
+    insert_items(){
+        const csv = require('csv-parser');
+        const fs = require('fs');
+        const itemsArray = [];
+        fs.createReadStream('Groceries_dataset.csv')
+            .pipe(csv())
+            .on('data', (row) => {
+                if (!(itemsArray).includes(row["itemDescription"].toLowerCase())){
+                    itemsArray.push(row["itemDescription"].toLowerCase());
+                    this.execute_query("INSERT INTO ITEMS (title) VALUES (' "+row['itemDescription'].toLowerCase()+"')");
+                }
+            })
+            .on('end', () => {
+                console.log("Items added to DB successfully");
+            });
+
+
     }
 
 }
