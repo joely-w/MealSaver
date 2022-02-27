@@ -57,7 +57,7 @@ module.exports = class OCR {
         // Using your personal API key + local file
         let receiptItems = {};
         console.log('Hanging')
-        const res = await ocrSpace('https://img.search.brave.com/DmSg1aj42yveYskRxwhWXpJ23998KzmqUJk4fgpRU1E/rs:fit:1200:655:1/g:ce/aHR0cHM6Ly93d3cu/ZXhwcmVzc2FuZHN0/YXIuY29tL3Jlc2l6/ZXIvdFVHVGpCZE82/czl2SmtrRDZ2N18w/TDh1TUNrPS8xMjAw/eDAvY2xvdWRmcm9u/dC11cy1lYXN0LTEu/aW1hZ2VzLmFyY3B1/Ymxpc2hpbmcuY29t/L21uYS80MzJOSTVH/T001RjRSSzRITTVO/RVlTSDZEUS5qcGc', {apiKey: 'K82372313488957'}); //  K81413160288957 K88956093988957 K83288537388957
+        const res = await ocrSpace('https://img.search.brave.com/eZbZiILNZZkGDSP7P6H890lo8h6-rs4g_dzztMQeyP4/rs:fit:597:1200:1/g:ce/aHR0cDovL3d3dy5i/bG9nLmJlY2NhamFu/ZXN0Y2xhaXIuY29t/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDEx/LzA2L3Rlc2NvLmpw/Zw', {apiKey: 'K82372313488957'}); //  K81413160288957 K88956093988957 K83288537388957
         console.log('Unhung', res)
         //do something with response here.
         const receiptText = (res["ParsedResults"][0]["ParsedText"]).toLowerCase();
