@@ -45,7 +45,6 @@ module.exports = class inventory {
                                                      AND items.item_id = item_usage.item_id`);
         console.log(result);
         console.log(result2);
-
         for (let i in result2) {
             for (let j in result) {
                 if (result2[i].item_id === result[j].item_id) {
