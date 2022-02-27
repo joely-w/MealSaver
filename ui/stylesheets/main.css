@@ -4,6 +4,7 @@ body {
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
   background: #f6f4f3;
+  text-align: center;
 }
 
 h1 {
@@ -88,6 +89,14 @@ button:active {
   padding: 0;
   display: inline-block;
   float: right;
+}
+
+/** Inventory **/
+.inventory {
+  max-width: 80%;
+  width: 800px;
+  margin: 0 auto;
+  border-bottom: 1px #332d2d solid;
 }
 
 /*# sourceMappingURL=main.css.map */

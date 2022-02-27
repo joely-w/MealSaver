@@ -32,6 +32,10 @@ app.post('/api/save/inventory', async (req, res) => {
     // TODO Needs to send a user parameter when sessions are implemented
     res.status(200).send('OK');
 })
+app.get('/api/list/inventory', async (req, res) => {
+    const result = await inventory.fetch_inventory(1);
+    res.send(result);
+})
 const port = 3001;
 server.listen(port);
 console.debug('Server listening on port ' + port);
