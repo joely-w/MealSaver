@@ -56,7 +56,8 @@ DELIMITER //
                         AND date < CONVERT(toDate, DATETIME)
                         GROUP BY items.item_id;
                     END //
-                    DELIMITER ;```
+                    DELIMITER ;
+```
 
 
 
