@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + "/../ui"));
 const dbConn = new (require("./services/database.js"))();
 const ocr = new (require("./services/recieptOcr"))();
+const inventory = new (require('./services/inventory'))();
 // default URL for website
 const server = http.createServer(app);
 app.post('/api/upload/receipt', upload.single('file'), async (req, res) => {

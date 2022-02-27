@@ -1,5 +1,5 @@
 require("formidable");
-const {ocrSpace} = require('ocr-space-api-wrapper');
+const { ocrSpace } = require('ocr-space-api-wrapper');
 const fs = require("fs");
 const csv = require("csv-parser");
 var stringSimilarity = require("string-similarity");

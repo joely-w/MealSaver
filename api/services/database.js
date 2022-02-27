@@ -28,7 +28,8 @@ module.exports = class Database {
         });
         this.create_database();
         // FIRST TIME SET UP: RUN THE BELOW FUNCTION!
-        //this.insert_items();
+        this.insert_items();
+        this.create_stored_procedures();
     }
 
     static execute_on_db(sql){
@@ -90,6 +91,50 @@ module.exports = class Database {
                     );`;
 
         this.execute_query(sql);
+    }
+
+    create_stored_procedures(){
+        let sql = `
+                    DELIMITER //
+                    
+                    CREATE PROCEDURE GetPurchasesBetweenDates(
+                        IN fromDate VARCHAR(255),
+                        IN toDate VARCHAR(255),
+                        IN userId INT
+                        )
+                    BEGIN
+                        SELECT COUNT(items.item_id) AS num, 
+                        items.item_id, 
+                        items.title 
+                        FROM items_addition 
+                        INNER JOIN items ON items.item_id 
+                        WHERE items_addition.user_id = userId 
+                        AND items.item_id=items_addition.item_id 
+                        AND items_addition.date < (CONVERT (toDate, DATETIME))
+                        AND items_addition.date > (CONVERT (fromDate, DATETIME));
+                    
+                    END //
+                    
+                    DELIMITER ;
+                                        
+                    DELIMITER //
+                    CREATE PROCEDURE GetUsesBetweenDates(
+                    \tIN fromDate VARCHAR(255),
+                        IN toDate VARCHAR(255),
+                        IN userId INT
+                        )
+                    BEGIN
+                        SELECT COUNT(item_usage.item_id) AS numSub, items.item_id, items.title, item_usage.date
+                        FROM item_usage
+                        INNER JOIN items ON items.item_id
+                        WHERE item_usage.user_id = userId
+                        AND items.item_id = item_usage.item_id
+                        AND date > CONVERT(fromDate, DATETIME) 
+                        AND date < CONVERT(toDate, DATETIME);
+                    END //
+                    DELIMITER ;                    
+                    
+                                        `
     }
 
     insert_items(){
