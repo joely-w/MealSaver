@@ -26,9 +26,11 @@ module.exports = class Database {
             if (err) throw err;
             console.debug("Connected!");
         });
-        this.create_database().then(r => this.insert_items());
+        this.create_database().then(r => {
+            //this.insert_items()
+        });
         // FIRST TIME SET UP: RUN THE BELOW FUNCTION!
-        this.create_stored_procedures().then();
+        //this.create_stored_procedures().then();
     }
 
     static execute_on_db(sql) {
