@@ -26,10 +26,13 @@ module.exports = class Database {
             if (err) throw err;
             console.debug("Connected!");
         });
-        this.create_database().then(r => this.insert_items());
+        this.create_database().then(r => {
+            //this.insert_items()
+            });
         // FIRST TIME SET UP: RUN THE BELOW FUNCTION!
-        this.create_stored_procedures().then();
-    }
+        //this.create_stored_procedures().then();
+
+        }
 
     static execute_on_db(sql) {
         Database.conn.query(sql, function (err, result, fields) {
@@ -93,12 +96,9 @@ module.exports = class Database {
     }
 
     async create_stored_procedures() {
-        let sql = `
-                    DELIMITER //
+        let sql = `DELIMITER //
                     
-                    CREATE PROCEDURE GetPurchasesBetweenDates(
-                        IN fromDate VARCHAR(255),
-                        IN toDate VARCHAR(255),
+                    CREATE PROCEDURE GetPurchasesBetweenDates(IN fromDate VARCHAR(255),IN toDate VARCHAR(255),
                         IN userId INT
                         )
                     BEGIN
