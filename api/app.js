@@ -27,7 +27,7 @@ app.post('/api/upload/receipt', upload.single('file'), async (req, res) => {
         return res.send(result);
     })
 });
-app.post('/api/save/inventory', async (reqb, res) => {
+app.post('/api/save/inventory', async (req, res) => {
     await ocr.addToInventory(req.body)
     // TODO Needs to send a user parameter when sessions are implemented
     res.status(200).send('OK');

@@ -27,7 +27,7 @@ module.exports = class inventory {
     }
 
     //Function to select products a user may wish to order again.
-    async reOrder(){
+    async reOrder() {
         let currentInventory = this.fetch_inventory(this.user_id);
         //what did the user have this time last week?
         let ourDate = new Date();
@@ -37,10 +37,6 @@ module.exports = class inventory {
         //what did the user have a week ago?
         let resultA = await Database.asyncQuery("CALL GetPurchasesBetweenDates('2000-01-01', '" + this.toSqlDate(nowDate) + "', " + this.user_id + ")");
         let resultB = await Database.asyncQuery("CALL GetUsesBetweenDates('2000-01-01', '" + this.toSqlDate(pastDate) + "', " + this.user_id + ")");
-        console.log("A");
-        console.log(resultA[0]);
-        console.log("B");
-        console.log(resultB[0]);
         let diff = this.subtract_object_arrays(resultA[0], resultB[0]);
         let diffdiff = this.subtract_object_arrays(currentInventory, diff);
         return diffdiff;
@@ -53,15 +49,16 @@ module.exports = class inventory {
         let searchString = "";
         for (let i in userChoicesArr) {
             searchString += userChoicesArr[i].title;
-        const {RecipeSearchClient} = require('edamam-api');
+            const {RecipeSearchClient} = require('edamam-api');
 
-        const client = new RecipeSearchClient({
-            appId: 'a50899c5',
-            appKey: 'f3ae0236aae1a63786322d4458172c20'
-        });
+            const client = new RecipeSearchClient({
+                appId: 'a50899c5',
+                appKey: 'f3ae0236aae1a63786322d4458172c20'
+            });
 
-        const results = await client.search({query: searchString});
-        return results["hits"];
+            const results = await client.search({query: searchString});
+            return results["hits"];
+        }
     }
 
     async fetch_inventory(user_id) {
@@ -73,7 +70,8 @@ module.exports = class inventory {
                                                    FROM item_usage
                                                             INNER JOIN items ON items.item_id
                                                    WHERE item_usage.user_id = ${user_id}
-                                                     AND items.item_id = item_usage.item_id GROUP BY item_id`);
+                                                     AND items.item_id = item_usage.item_id
+                                                   GROUP BY item_id`);
         console.log(result);
         console.log(result2);
         for (let i in result2) {
