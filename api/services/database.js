@@ -27,7 +27,7 @@ module.exports = class Database {
             console.debug("Connected!");
         });
         this.create_database().then(r => {
-            //this.insert_items()
+            this.insert_items()
             });
         // FIRST TIME SET UP: RUN THE BELOW FUNCTION!
         //this.create_stored_procedures().then();
