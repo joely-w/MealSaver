@@ -146,7 +146,7 @@ module.exports = class Database {
             .on('data', (row) => {
                 if (!(itemsArray).includes(row["itemDescription"].toLowerCase())) {
                     itemsArray.push(row["itemDescription"].toLowerCase());
-                    this.execute_query("INSERT INTO ITEMS (title) VALUES (' " + row['itemDescription'].toLowerCase() + "')");
+                    this.execute_query("INSERT INTO items (title) VALUES ('" + row['itemDescription'].toLowerCase() + "')");
                 }
             })
             .on('end', () => {
