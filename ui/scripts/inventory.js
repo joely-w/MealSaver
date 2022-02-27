@@ -12,3 +12,20 @@ function listInventory() {
 }
 
 listInventory()
+let ingredientsList = [];
+$(document).ready(function(){
+    $(".addIngredient").click(function(){
+        alert($(this).data("id"));
+        alert($(this).data("title"));
+        $("#ingredientsInRecipe").append(`<li>`+$(this).data("title")+"</li>");
+        ingredientsList.push($(this).data("title"));
+        console.log(ingredientsList);
+        $.post("/api/list/recipes",{data: ingredientsList}, (res)=>{
+            console.log(res);
+            for (let i in res){
+                $("#recipeList").append("<li>"+res[i]["recipe"]["label"]+"</li");
+            }
+        });
+    });
+});
+

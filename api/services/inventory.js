@@ -27,7 +27,7 @@ module.exports = class inventory {
     }
 
     //Function to select products a user may wish to order again.
-    async reOrder() {
+    async reOrder(){
         let currentInventory = this.fetch_inventory(this.user_id);
         //what did the user have this time last week?
         let ourDate = new Date();
@@ -49,10 +49,10 @@ module.exports = class inventory {
     async fetch_recipes(userChoicesArr) {
         //get inventory if haven't already;
         //get list of ingredients in search string.
+        console.log(userChoicesArr);
         let searchString = "";
         for (let i in userChoicesArr) {
             searchString += userChoicesArr[i].title;
-        }
         const {RecipeSearchClient} = require('edamam-api');
 
         const client = new RecipeSearchClient({
@@ -68,12 +68,12 @@ module.exports = class inventory {
         //get inventory data about user
         //TODO replace with logged in user
         let a = this;
-        const result = await Database.asyncQuery("SELECT COUNT(items.item_id) AS num, items.item_id, items.title FROM items_addition INNER JOIN items ON items.item_id WHERE items_addition.user_id = " + user_id + " AND items.item_id=items_addition.item_id")
+        const result = await Database.asyncQuery("SELECT COUNT(items.item_id) AS num, items.item_id, items.title FROM items_addition INNER JOIN items ON items.item_id WHERE items_addition.user_id = " + user_id + " AND items.item_id=items_addition.item_id GROUP BY item_id")
         const result2 = await Database.asyncQuery(`SELECT COUNT(items.item_id) AS numSub, items.item_id, items.title
                                                    FROM item_usage
                                                             INNER JOIN items ON items.item_id
                                                    WHERE item_usage.user_id = ${user_id}
-                                                     AND items.item_id = item_usage.item_id`);
+                                                     AND items.item_id = item_usage.item_id GROUP BY item_id`);
         console.log(result);
         console.log(result2);
         for (let i in result2) {

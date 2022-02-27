@@ -27,7 +27,7 @@ app.post('/api/upload/receipt', upload.single('file'), async (req, res) => {
         return res.send(result);
     })
 });
-app.post('/api/save/inventory', async (req, res) => {
+app.post('/api/save/inventory', async (reqb, res) => {
     await ocr.addToInventory(req.body)
     // TODO Needs to send a user parameter when sessions are implemented
     res.status(200).send('OK');
@@ -36,6 +36,12 @@ app.get('/api/list/inventory', async (req, res) => {
     const result = await inventory.fetch_inventory(1);
     res.send(result);
 })
+
+app.post('/api/list/recipes', async (req, res) => {
+    const result = await inventory.fetch_recipes(req.body.data);
+    res.send(result);
+})
+
 app.get('/api/list/shopping', async (req, res) => {
     const result = await inventory.reOrder();
     res.send(result);
