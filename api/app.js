@@ -36,6 +36,10 @@ app.get('/api/list/inventory', async (req, res) => {
     const result = await inventory.fetch_inventory(1);
     res.send(result);
 })
+app.get('/api/list/shopping', async (req, res) => {
+    const result = await inventory.reOrder();
+    res.send(result);
+})
 const port = 3001;
 server.listen(port);
 console.debug('Server listening on port ' + port);

@@ -10,12 +10,12 @@ module.exports = class inventory {
         this.reOrder();
     }
 
-    toSqlDate(myDate){
+    toSqlDate(myDate) {
         return myDate.toISOString().slice(0, 19).replace('T', ' ');
 
     }
 
-    subtract_object_arrays(operandA, operandB){
+    subtract_object_arrays(operandA, operandB) {
         for (let i in operandB) {
             for (let j in operandA) {
                 if (operandB[i].item_id === operandA[j].item_id) {
@@ -27,53 +27,40 @@ module.exports = class inventory {
     }
 
     //Function to select products a user may wish to order again.
-    async reOrder(){
+    async reOrder() {
         let currentInventory = this.fetch_inventory(this.user_id);
         //what did the user have this time last week?
         let ourDate = new Date();
         let nowDate = new Date();
-        let pastDate = ourDate.getDate() - 7;
+        let pastDate = new Date(ourDate.getDate() - 7);
         //ourDate.setDate(pastDate);
         //what did the user have a week ago?
-        let resultA = await Database.asyncQuery("CALL GetPurchasesBetweenDates('2000-01-01', '"+this.toSqlDate(ourDate)+"', "+this.user_id+")");
-        let resultB = await Database.asyncQuery("CALL GetUsesBetweenDates('2000-01-01', '"+this.toSqlDate(ourDate)+"', "+this.user_id+")");
+        let resultA = await Database.asyncQuery("CALL GetPurchasesBetweenDates('2000-01-01', '" + this.toSqlDate(nowDate) + "', " + this.user_id + ")");
+        let resultB = await Database.asyncQuery("CALL GetUsesBetweenDates('2000-01-01', '" + this.toSqlDate(pastDate) + "', " + this.user_id + ")");
         console.log("A");
         console.log(resultA[0]);
         console.log("B");
         console.log(resultB[0]);
         let diff = this.subtract_object_arrays(resultA[0], resultB[0]);
         let diffdiff = this.subtract_object_arrays(currentInventory, diff);
-        console.log("DIFF");
-        console.log(diffdiff);
-        let ingredientArr = [];
-        //get csv
-        for (let j in diff){
-            ingredientArr.push(diff[j]["title"]);
-        }
-
-        let returnStr = '<form method="POST" action="https://www.amazon.com/afx/ingredients/landing">'+
-     '<input type="hidden" name="ingredients" value=\''+JSON.stringify({"ingredients":ingredientArr})+'\'>'+
-     '<input type="submit" value="Buy on Amazon">'
-        console.log(returnStr);
-        return returnStr;
-
+        return diffdiff;
     }
 
-    async fetch_recipes(userChoicesArr){
+    async fetch_recipes(userChoicesArr) {
         //get inventory if haven't already;
         //get list of ingredients in search string.
         let searchString = "";
-        for (let i in userChoicesArr){
+        for (let i in userChoicesArr) {
             searchString += userChoicesArr[i].title;
         }
-        const { RecipeSearchClient } = require('edamam-api');
+        const {RecipeSearchClient} = require('edamam-api');
 
         const client = new RecipeSearchClient({
             appId: 'a50899c5',
             appKey: 'f3ae0236aae1a63786322d4458172c20'
         });
 
-        const results = await client.search({ query: searchString });
+        const results = await client.search({query: searchString});
         return results["hits"];
     }
 
