@@ -92,6 +92,35 @@ module.exports = class Database {
         this.execute_query(sql);
     }
 
+    create_stored_procedures(){
+        let sql = `
+                    DELIMITER //
+                    
+                    CREATE PROCEDURE GetPurchasesBetweenDates(
+                        IN fromDate VARCHAR(255),
+                        IN toDate VARCHAR(255),
+                        IN userId INT
+                        )
+                    BEGIN
+                        SELECT COUNT(items.item_id) AS num, 
+                        items.item_id, 
+                        items.title 
+                        FROM items_addition 
+                        INNER JOIN items ON items.item_id 
+                        WHERE items_addition.user_id = userId 
+                        AND items.item_id=items_addition.item_id 
+                        AND items_addition.date < (CONVERT (toDate, DATETIME))
+                        AND items_addition.date > (CONVERT (fromDate, DATETIME));
+                    
+                    END //
+                    
+                    DELIMITER ;
+                                        
+                                        
+                    
+                                        `
+    }
+
     insert_items(){
         const csv = require('csv-parser');
         const fs = require('fs');
