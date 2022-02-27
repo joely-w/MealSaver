@@ -20,9 +20,9 @@ $(document).ready(function(){
         $("#"+$(this).data("id")).css("display", "none");
         console.log(ingredientsList);
         $.post("/api/list/recipes",{data: ingredientsList}, (res)=>{
-            $("#recipeList").empty();
-            console.log(res);
+            $("#recipeList").html(" ");
             for (let i in res){
+                if(i===4) break;
                 $("#recipeList").append("<li><a href="+res[i]["recipe"]["url"]+"</a>"+res[i]["recipe"]["label"]+"</li>");
             }
         });

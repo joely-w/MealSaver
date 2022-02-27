@@ -64,7 +64,7 @@ $("#save").click(() => {
         url: "/api/save/inventory",
         data: $("#items").serialize(),
         success: (res) => {
-            console.log(res)
+            window.location.href='/inventory.html'
         }
 
     })
