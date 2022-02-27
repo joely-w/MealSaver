@@ -40,12 +40,12 @@ module.exports = class inventory {
         //TODO replace with logged in user
         let a = this;
         const result = await Database.asyncQuery("SELECT COUNT(items.item_id) AS num, items.item_id, items.title FROM items_addition INNER JOIN items ON items.item_id WHERE items_addition.user_id = " + user_id + " AND items.item_id=items_addition.item_id")
-        const result2 = await Database.asyncQuery(``)
-        console.log(result);SELECT COUNT(items.item_id) AS numSub, items.item_id, items.title
-        FROM item_usage
-        INNER JOIN items ON items.item_id
-        WHERE item_usage.user_id = ${user_id}
-            AND items.item_id = item_usage.item_id
+        const result2 = await Database.asyncQuery(`SELECT COUNT(items.item_id) AS numSub, items.item_id, items.title
+                                                   FROM item_usage
+                                                            INNER JOIN items ON items.item_id
+                                                   WHERE item_usage.user_id = ${user_id}
+                                                     AND items.item_id = item_usage.item_id`)
+        console.log(result);
         console.log(result2);
 
         for (let i in result2) {
