@@ -10,13 +10,22 @@
 </head>
 <body>
 <main>
-    <h1>Scan your receipt</h1>
-    <video id="video" width="400" height="300" autoplay></video>
-    <canvas id="canvas" width="400" height="300"></canvas>
-    <button id="snap"><i class="fa fa-2x fa-camera-retro" aria-hidden="true"></i></button>
-    <button id="retry"><i class="fa fa-2x fa-refresh" aria-hidden="true"></i></button>
-    <button id="accept"><i class="fa fa-2x fa-check" aria-hidden="true"></i>
-    </button>
+    <div id="receipt">
+        <h1>Scan your receipt</h1>
+        <video id="video" width="400" height="300" autoplay></video>
+        <canvas id="canvas" width="400" height="300"></canvas>
+        <button id="snap"><i class="fa fa-2x fa-camera-retro" aria-hidden="true"></i></button>
+        <button id="retry"><i class="fa fa-2x fa-refresh" aria-hidden="true"></i></button>
+        <button id="accept"><i class="fa fa-2x fa-check" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div id="inventory">
+        <h1>Check your list</h1>
+        <form id="items">
+        </form>
+        <button id="save"><i class="fa fa-2x fa-floppy-o" aria-hidden="true"></i>
+        </button>
+    </div>
 </main>
 <nav>
     <ul>

@@ -45,7 +45,7 @@ nav ul li a.active {
   height: 80%;
 }
 
-#canvas, #retry, #accept {
+#canvas, #retry, #accept, #inventory {
   display: none;
 }
 
@@ -59,6 +59,35 @@ button {
 button:active {
   color: #ff915c;
   border: 3px #ff915c solid;
+}
+
+#items {
+  max-width: 80%;
+  width: 500px;
+  margin: 0 auto;
+}
+#items label {
+  text-align: left;
+  display: block;
+  margin: 10px 0;
+  width: 100%;
+}
+#items label span {
+  margin-right: 25px;
+}
+#items label input {
+  float: right;
+  text-align: center;
+  width: 30px;
+  background: #f6f4f3;
+  color: #332d2d;
+  border: none;
+  border-bottom: #332d2d 1px dotted;
+}
+#items label a {
+  padding: 0;
+  display: inline-block;
+  float: right;
 }
 
 /*# sourceMappingURL=main.css.map */
