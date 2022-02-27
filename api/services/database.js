@@ -110,7 +110,8 @@ module.exports = class Database {
                         WHERE items_addition.user_id = userId 
                         AND items.item_id=items_addition.item_id 
                         AND items_addition.date < (CONVERT (toDate, DATETIME))
-                        AND items_addition.date > (CONVERT (fromDate, DATETIME));
+                        AND items_addition.date > (CONVERT (fromDate, DATETIME))
+                        GROUP BY items.item_id;
                     
                     END //
                     
@@ -129,7 +130,8 @@ module.exports = class Database {
                         WHERE item_usage.user_id = userId
                         AND items.item_id = item_usage.item_id
                         AND date > CONVERT(fromDate, DATETIME) 
-                        AND date < CONVERT(toDate, DATETIME);
+                        AND date < CONVERT(toDate, DATETIME)
+                        GROUP BY items.item_id;
                     END //
                     DELIMITER ;                    
                     
