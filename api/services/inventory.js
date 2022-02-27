@@ -7,12 +7,56 @@ module.exports = class inventory {
         this.user_id = 1;
         //await this.fetch_inventory(1).then(r => null);
         //this.fetch_recipes();
+        this.reOrder();
+    }
+
+    toSqlDate(myDate){
+        return myDate.toISOString().slice(0, 19).replace('T', ' ');
+
+    }
+
+    subtract_object_arrays(operandA, operandB){
+        for (let i in operandB) {
+            for (let j in operandA) {
+                if (operandB[i].item_id === operandA[j].item_id) {
+                    operandA[j].num = parseInt(operandA[j].num) - parseInt(operandB[i].numSub);
+                }
+            }
+        }
+        return operandA;
     }
 
     //Function to select products a user may wish to order again.
     async reOrder(){
-        //what does the user have now??
-        Database.asyncQuery("CALL ")
+        let currentInventory = this.fetch_inventory(this.user_id);
+        //what did the user have this time last week?
+        let ourDate = new Date();
+        let nowDate = new Date();
+        let pastDate = ourDate.getDate() - 7;
+        //ourDate.setDate(pastDate);
+        //what did the user have a week ago?
+        let resultA = await Database.asyncQuery("CALL GetPurchasesBetweenDates('2000-01-01', '"+this.toSqlDate(ourDate)+"', "+this.user_id+")");
+        let resultB = await Database.asyncQuery("CALL GetUsesBetweenDates('2000-01-01', '"+this.toSqlDate(ourDate)+"', "+this.user_id+")");
+        console.log("A");
+        console.log(resultA[0]);
+        console.log("B");
+        console.log(resultB[0]);
+        let diff = this.subtract_object_arrays(resultA[0], resultB[0]);
+        let diffdiff = this.subtract_object_arrays(currentInventory, diff);
+        console.log("DIFF");
+        console.log(diffdiff);
+        let ingredientArr = [];
+        //get csv
+        for (let j in diff){
+            ingredientArr.push(diff[j]["title"]);
+        }
+
+        let returnStr = '<form method="POST" action="https://www.amazon.com/afx/ingredients/landing">'+
+     '<input type="hidden" name="ingredients" value=\''+JSON.stringify({"ingredients":ingredientArr})+'\'>'+
+     '<input type="submit" value="Buy on Amazon">'
+        console.log(returnStr);
+        return returnStr;
+
     }
 
     async fetch_recipes(userChoicesArr){
