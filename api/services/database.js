@@ -14,7 +14,7 @@ module.exports = class Database {
     constructor() {
         Database.conn = mysql.createConnection({
             host: Database.host,
-            port:3306,
+            port: 3306,
             user: Database.user,
             password: Database.password,
             multipleStatements: true
@@ -26,13 +26,12 @@ module.exports = class Database {
             if (err) throw err;
             console.debug("Connected!");
         });
-        this.create_database();
+        this.create_database().then(r => this.insert_items());
         // FIRST TIME SET UP: RUN THE BELOW FUNCTION!
-        this.insert_items();
-        this.create_stored_procedures();
+        this.create_stored_procedures().then();
     }
 
-    static execute_on_db(sql){
+    static execute_on_db(sql) {
         Database.conn.query(sql, function (err, result, fields) {
             if (err) throw err;
             //console.log(result);
@@ -47,8 +46,8 @@ module.exports = class Database {
     }
 
 
-    create_database() {
-        let sql =  `CREATE DATABASE IF NOT EXISTS mealsaver;
+    async create_database() {
+        let sql = `CREATE DATABASE IF NOT EXISTS mealsaver;
                     USE mealsaver;
                     CREATE TABLE IF NOT EXISTS users(
                         user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -90,10 +89,10 @@ module.exports = class Database {
                         FOREIGN KEY (user_id) REFERENCES users(user_id)
                     );`;
 
-        this.execute_query(sql);
+        return await Database.asyncQuery(sql);
     }
 
-    create_stored_procedures(){
+    async create_stored_procedures() {
         let sql = `
                     DELIMITER //
                     
@@ -135,18 +134,19 @@ module.exports = class Database {
                     DELIMITER ;                    
                     
                                         `
+        return await Database.asyncQuery(sql)
     }
 
-    insert_items(){
+    insert_items() {
         const csv = require('csv-parser');
         const fs = require('fs');
         const itemsArray = [];
         fs.createReadStream('Groceries_dataset.csv')
             .pipe(csv())
             .on('data', (row) => {
-                if (!(itemsArray).includes(row["itemDescription"].toLowerCase())){
+                if (!(itemsArray).includes(row["itemDescription"].toLowerCase())) {
                     itemsArray.push(row["itemDescription"].toLowerCase());
-                    this.execute_query("INSERT INTO ITEMS (title) VALUES (' "+row['itemDescription'].toLowerCase()+"')");
+                    this.execute_query("INSERT INTO ITEMS (title) VALUES (' " + row['itemDescription'].toLowerCase() + "')");
                 }
             })
             .on('end', () => {
