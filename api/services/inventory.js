@@ -11,10 +11,8 @@ module.exports = class inventory {
 
     //Function to select products a user may wish to order again.
     async reOrder(){
-        //need to calculate all time average products per week. Tricky. Je-sus.
-        //First calculate the amount of x product user usually has after doing a shop??
-        //For every time they have purchased, the number they had at that point.
-
+        //what does the user have now??
+        Database.asyncQuery("CALL ")
     }
 
     async fetch_recipes(userChoicesArr){
@@ -44,7 +42,7 @@ module.exports = class inventory {
                                                    FROM item_usage
                                                             INNER JOIN items ON items.item_id
                                                    WHERE item_usage.user_id = ${user_id}
-                                                     AND items.item_id = item_usage.item_id`)
+                                                     AND items.item_id = item_usage.item_id`);
         console.log(result);
         console.log(result2);
 

@@ -28,7 +28,8 @@ module.exports = class Database {
         });
         this.create_database();
         // FIRST TIME SET UP: RUN THE BELOW FUNCTION!
-        //this.insert_items();
+        this.insert_items();
+        this.create_stored_procedures();
     }
 
     static execute_on_db(sql){
@@ -116,7 +117,22 @@ module.exports = class Database {
                     
                     DELIMITER ;
                                         
-                                        
+                    DELIMITER //
+                    CREATE PROCEDURE GetUsesBetweenDates(
+                    \tIN fromDate VARCHAR(255),
+                        IN toDate VARCHAR(255),
+                        IN userId INT
+                        )
+                    BEGIN
+                        SELECT COUNT(item_usage.item_id) AS numSub, items.item_id, items.title, item_usage.date
+                        FROM item_usage
+                        INNER JOIN items ON items.item_id
+                        WHERE item_usage.user_id = userId
+                        AND items.item_id = item_usage.item_id
+                        AND date > CONVERT(fromDate, DATETIME) 
+                        AND date < CONVERT(toDate, DATETIME);
+                    END //
+                    DELIMITER ;                    
                     
                                         `
     }
