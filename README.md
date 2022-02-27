@@ -18,6 +18,7 @@ You can then run `npm run start` from the `api` folder and access the app from `
 
 *Note*: For first time setup you'll need to add the following stored procedures to your MySQL database after running the script (our MySQL library wouldn't let us 😢):
 ```
+USE mealsaver;
 DELIMITER //
                     
                     CREATE PROCEDURE GetPurchasesBetweenDates(IN fromDate VARCHAR(255),IN toDate VARCHAR(255),
@@ -55,8 +56,7 @@ DELIMITER //
                         AND date < CONVERT(toDate, DATETIME)
                         GROUP BY items.item_id;
                     END //
-                    DELIMITER ;
-                    ```
+                    DELIMITER ;```
 
 
 
